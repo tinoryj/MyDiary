@@ -10,11 +10,7 @@
 
 @interface ViewController ()
 
-@property (nonatomic) CGSize deviceScreenSize;
-
 @property (nonatomic) CGRect buttonRect;
-//主题颜色
-@property (nonatomic,strong) UIColor *themeColor;
 
 @property (nonatomic,retain) UILabel *titleLabel;
 
@@ -48,7 +44,6 @@
     //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
     _themeColor = blueThemeColor;
     //控件大小设置
-    _deviceScreenSize = [UIScreen mainScreen].bounds.size;
     _buttonRect = CGRectMake(0, 0, 20, 20);
     //属性设置
     self.navigationController.toolbar.hidden=NO;
@@ -61,7 +56,7 @@
 
 - (void)titleLableInit {
     
-    _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake( _deviceScreenSize.width / 2 - 100, 66, 200, 20)];
+    _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake( [UIScreen mainScreen].bounds.size.width / 2 - 100, 66, 200, 20)];
     [_titleLabel setTextAlignment:NSTextAlignmentCenter];
     [_titleLabel setTextColor:_themeColor];
     [_titleLabel setFont:[UIFont fontWithName:@"AppleGothic" size:20]];
@@ -71,19 +66,19 @@
 - (void)viewControllersInit {
     
     _elementVC = [[ElementViewController alloc]init];
-    [_elementVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+    [_elementVC.view setFrame:CGRectMake(0, 90, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 140)];
     [self addChildViewController:_elementVC];
     [self.view addSubview:self.elementVC.view];
     
     _diaryVC = [[DiaryViewController alloc]init];
-    [_diaryVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+    [_diaryVC.view setFrame:CGRectMake(0, 90, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 140)];
     [self addChildViewController:_diaryVC];
     [self.view addSubview:self.diaryVC.view];
 }
 
 - (void)buildSegmentControl {
     
-    UISegmentedControl *baseSegmentControl = [[UISegmentedControl alloc]initWithFrame:CGRectMake(40, 30, _deviceScreenSize.width - 80, 30)];
+    UISegmentedControl *baseSegmentControl = [[UISegmentedControl alloc]initWithFrame:CGRectMake(40, 30, [UIScreen mainScreen].bounds.size.width - 80, 30)];
 
     [baseSegmentControl setTintColor:_themeColor];
     [baseSegmentControl setMultipleTouchEnabled:YES];
@@ -113,7 +108,7 @@
 
         [_titleLabel setText:@"CALENDER"];
         _calendarVC = [[CalendarViewController alloc]init];
-        [_calendarVC.view setFrame:CGRectMake(0, 90, _deviceScreenSize.width, _deviceScreenSize.height-140)];
+        [_calendarVC.view setFrame:CGRectMake(0, 90, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 140)];
         [self addChildViewController:_calendarVC];
         [self.view addSubview:self.calendarVC.view];
         [self.view bringSubviewToFront:_calendarVC.view];
@@ -155,22 +150,22 @@
     UIBarButtonItem *blankBarButton1=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     [blankBarButton1 setWidth:10];
     UIBarButtonItem *blankBarButton2=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-    if(_deviceScreenSize.width == 375)
+    if([UIScreen mainScreen].bounds.size.width == 375)
         [blankBarButton2 setWidth:136 - (_buttonRect.size.width -23)*3];
-    else if(_deviceScreenSize.width == 320)
+    else if([UIScreen mainScreen].bounds.size.width == 320)
         [blankBarButton2 setWidth:91 - (_buttonRect.size.width -23)*3];
-    else if(_deviceScreenSize.width == 414)
+    else if([UIScreen mainScreen].bounds.size.width == 414)
         [blankBarButton2 setWidth:185 - (_buttonRect.size.width -23)*3];
-    else if(_deviceScreenSize.width == 768)
+    else if([UIScreen mainScreen].bounds.size.width == 768)
         [blankBarButton2 setWidth:539 - (_buttonRect.size.width -23)*3];
-    else if(_deviceScreenSize.width == 1024)
+    else if([UIScreen mainScreen].bounds.size.width == 1024)
         [blankBarButton2 setWidth:795 - (_buttonRect.size.width -23)*3];
     
     NSArray *baseToolBarItem=[NSArray arrayWithObjects:listBarButton,blankBarButton1,charactersBarButton,blankBarButton1,cameraBarButton,blankBarButton2,itemBarButton,nil];
     [baseToolbar setItems:baseToolBarItem];
     [self.view addSubview:baseToolbar];
     //项目数显示lable
-    _itemShowLabel = [[UILabel alloc]initWithFrame:CGRectMake(_deviceScreenSize.width - 70,_deviceScreenSize.height - 24 - (_buttonRect.size.height / 2), 60, _buttonRect.size.height)];
+    _itemShowLabel = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 70,[UIScreen mainScreen].bounds.size.height - 24 - (_buttonRect.size.height / 2), 60, _buttonRect.size.height)];
     [_itemShowLabel setTextAlignment:NSTextAlignmentRight];
     [_itemShowLabel setTextColor:[UIColor whiteColor]];
     [_itemShowLabel setFont:[UIFont systemFontOfSize:_buttonRect.size.height-3]];
@@ -179,7 +174,7 @@
 }
 
 - (void)create{
-    if(_page == 0){
+    if(_page == 0 || _page == 1){
         [self.elementVC note];
     }
     if(_page == 2){
@@ -191,7 +186,7 @@
 
     NSUInteger itemNumber = [_elementVC.listData count];
     NSUInteger diaryNumber = [_diaryVC.listData count];
-    if(_page == 0){
+    if(_page == 0 || _page == 1){
         NSString *itemNumberShow=[NSString stringWithFormat:@"%ld 项目",itemNumber];
         [_itemShowLabel setText:itemNumberShow];
     }

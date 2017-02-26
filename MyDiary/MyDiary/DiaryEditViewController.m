@@ -9,7 +9,7 @@
 #import "DiaryEditViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <AddressBook/AddressBook.h>
-//#import "RootViewController.h"
+#import "AppDelegate.h"
 
 @interface DiaryEditViewController ()<UIActionSheetDelegate,UITextViewDelegate,UITextFieldDelegate,CLLocationManagerDelegate>
 
@@ -50,9 +50,9 @@
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager requestAlwaysAuthorization];
     //主题颜色
-    UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
-    //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
-    _themeColor = blueThemeColor;
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    _themeColor = appDelegate.themeColor;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self buildNavBar];
     [self buildTitleTextField];

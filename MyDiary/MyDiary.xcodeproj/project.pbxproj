@@ -18,6 +18,8 @@
 		4211D8971E40263500D03C4F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4211D8961E40263500D03C4F /* libsqlite3.tbd */; };
 		4211D89A1E40490700D03C4F /* ElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8991E40490700D03C4F /* ElementViewController.m */; };
 		4211D8A11E40499C00D03C4F /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211D8A01E40499C00D03C4F /* CalendarViewController.m */; };
+		42753A921E62D2B600BFEA5C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42753A911E62D2B600BFEA5C /* Settings.bundle */; };
+		42753A991E62DBF100BFEA5C /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42753A981E62DBF100BFEA5C /* SettingViewController.m */; };
 		4290BD721E47365400BC225E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4290BD711E47365400BC225E /* Media.xcassets */; };
 		42EDF38C1E49C4F0002477C5 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3871E49C4F0002477C5 /* Note.m */; };
 		42EDF38D1E49C4F0002477C5 /* NoteBL.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDF3891E49C4F0002477C5 /* NoteBL.m */; };
@@ -75,6 +77,9 @@
 		4211D89E1E40496000D03C4F /* DiaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiaryViewController.h; sourceTree = "<group>"; };
 		4211D89F1E40498100D03C4F /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4211D8A01E40499C00D03C4F /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		42753A911E62D2B600BFEA5C /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		42753A971E62DBF100BFEA5C /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		42753A981E62DBF100BFEA5C /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		4290BD711E47365400BC225E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		42EDF3861E49C4F0002477C5 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		42EDF3871E49C4F0002477C5 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
@@ -155,6 +160,7 @@
 				4211D8931E4024D400D03C4F /* BusinessLogicLayer */,
 				4211D8921E4024C800D03C4F /* PersistenceLayer */,
 				4211D8561E40246E00D03C4F /* Supporting Files */,
+				42753A911E62D2B600BFEA5C /* Settings.bundle */,
 			);
 			path = MyDiary;
 			sourceTree = "<group>";
@@ -235,6 +241,8 @@
 				42EDF39B1E4AEB07002477C5 /* NoteEditViewController.m */,
 				42EDF3941E4AEAB5002477C5 /* DiaryEditViewController.h */,
 				42EDF3951E4AEAB5002477C5 /* DiaryEditViewController.m */,
+				42753A971E62DBF100BFEA5C /* SettingViewController.h */,
+				42753A981E62DBF100BFEA5C /* SettingViewController.m */,
 			);
 			name = PresentationLayer;
 			sourceTree = "<group>";
@@ -368,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42753A921E62D2B600BFEA5C /* Settings.bundle in Resources */,
 				4290BD721E47365400BC225E /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +404,7 @@
 			files = (
 				4211D8A11E40499C00D03C4F /* CalendarViewController.m in Sources */,
 				4211D85E1E40246E00D03C4F /* RootViewController.m in Sources */,
+				42753A991E62DBF100BFEA5C /* SettingViewController.m in Sources */,
 				4211D85B1E40246E00D03C4F /* AppDelegate.m in Sources */,
 				42EDF3961E4AEAB5002477C5 /* DiaryEditViewController.m in Sources */,
 				42EDF39C1E4AEB07002477C5 /* NoteEditViewController.m in Sources */,
@@ -541,6 +551,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
 				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
 				DEVELOPMENT_TEAM = S3QSH37693;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = MyDiary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -557,6 +569,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImageBlue;
 				CODE_SIGN_ENTITLEMENTS = MyDiary/MyDiary.entitlements;
 				DEVELOPMENT_TEAM = S3QSH37693;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = MyDiary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

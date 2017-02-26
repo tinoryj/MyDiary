@@ -9,12 +9,11 @@
 #import "CalendarViewController.h"
 #import "CalendarTable.h"
 #import "CalendarItems.h"
+#import "AppDelegate.h"
 
 @interface CalendarViewController () <UITableViewDelegate,UITableViewDataSource,selectedUpdate,NotePageUpdateDelegate>
 
 @property (nonatomic,strong) CalendarTable *calendar;
-
-@property (nonatomic) CGSize deviceScreenSize;
 
 @property (nonatomic,strong) UIColor *themeColor;
 
@@ -25,8 +24,6 @@
 @property (nonatomic,strong) NSMutableArray *noteListArray;
 
 @property (nonatomic,strong) NSMutableArray *dataArray;
-
-@property (nonatomic,strong) UILabel *titleLabel;
 
 @property (nonatomic,strong) UIView *cellView;
 
@@ -49,7 +46,9 @@
 - (void)viewDidLoad{
     
     [super viewDidLoad];
-    [self themeSetting];
+    //主题颜色
+    AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    _themeColor = appDelegate.themeColor;
     _bl = [[NoteBL alloc]init];
     _dataArray = [[NSMutableArray alloc]init];
     _noteListArray = [[NSMutableArray alloc]init];
@@ -89,16 +88,6 @@
     }
     return self;
 }
-//主题设置
--(void)themeSetting {
-    //主题颜色
-    UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
-    //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
-    _themeColor = blueThemeColor;
-    //控件大小设置
-    _deviceScreenSize = [UIScreen mainScreen].bounds.size;
-    
-}
 
 - (void)initSelectedDate{
     if (key != 1){
@@ -122,21 +111,21 @@
     Note *noteData = _dataArray[indexPath.row];
     //_cellView设置
     _cellView=[[UIView alloc]init];
-    [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, 80)];
+    [_cellView setFrame:CGRectMake(15, 10, [UIScreen mainScreen].bounds.size.width-30, 80)];
     [_cellView.layer setCornerRadius:10];
     [_cellView setBackgroundColor:[UIColor whiteColor]];
     [baseTableViewCell.contentView addSubview:_cellView];
     //标题显示
-    _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 22.5, _deviceScreenSize.width - 120, 40)];
-    [_titleLabel setTextColor:_themeColor];
-    [_titleLabel setFont:[UIFont systemFontOfSize:18]];
-    [_titleLabel setNumberOfLines:0];
-    [_titleLabel setLineBreakMode:NSLineBreakByCharWrapping];
-    [_titleLabel setText:noteData.title];
-    [_titleLabel setTag: indexPath.row];
-    [_cellView addSubview:_titleLabel];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 22.5, [UIScreen mainScreen].bounds.size.width - 120, 40)];
+    [titleLabel setTextColor:_themeColor];
+    [titleLabel setFont:[UIFont systemFontOfSize:18]];
+    [titleLabel setNumberOfLines:0];
+    [titleLabel setLineBreakMode:NSLineBreakByCharWrapping];
+    [titleLabel setText:noteData.title];
+    [titleLabel setTag: indexPath.row];
+    [_cellView addSubview:titleLabel];
     //位置显示
-    UILabel *_locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, _deviceScreenSize.width - 120, 10)];
+    UILabel *_locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, [UIScreen mainScreen].bounds.size.width - 120, 10)];
     [_locationLabel setTextColor:_themeColor];
     [_locationLabel setFont:[UIFont systemFontOfSize:12]];
     [_locationLabel setNumberOfLines:0];
@@ -184,10 +173,10 @@
         yearShow--;
     }
     NSInteger weekDayShow = (dateShow + 2 * monthShow + 3 * (monthShow + 1) / 5 + yearShow + yearShow / 4 - yearShow / 100 + yearShow / 400) % 7;
-    NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects:@"日曜日", @"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"何曜日", nil];
+    NSMutableArray *weekDaySet=[NSMutableArray arrayWithObjects: @"月曜日", @"火曜日", @"水曜日", @"木曜日", @"金曜日", @"土曜日", @"日曜日", nil];
     UILabel *_weekLabel = [[UILabel alloc]init];
     [_weekLabel setFrame:CGRectMake(0, 50, 60, 20)];
-    [_weekLabel setText:[weekDaySet objectAtIndex:weekDayShow - 1]];
+    [_weekLabel setText:[weekDaySet objectAtIndex:weekDayShow]];
     [_weekLabel setFont:[UIFont systemFontOfSize:12]];
     [_weekLabel setTextAlignment:NSTextAlignmentCenter];
     [_weekLabel setBackgroundColor:[UIColor clearColor]];

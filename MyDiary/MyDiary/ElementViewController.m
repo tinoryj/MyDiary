@@ -7,6 +7,7 @@
 //
 
 #import "ElementViewController.h"
+#import "AppDelegate.h"
 
 @interface ElementViewController () <UITableViewDelegate,UITableViewDataSource,NotePageUpdateDelegate,UITextFieldDelegate>
 
@@ -32,8 +33,6 @@
 
 @property (nonatomic,strong) NSString *time;
 
-@property (nonatomic) CGSize deviceScreenSize;
-
 @property (nonatomic,strong) UIColor *themeColor;
 
 @property int year, month, date, hour, minute, weekDay;
@@ -45,9 +44,11 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self themeSetting];
+    //主题颜色
+    AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    _themeColor = appDelegate.themeColor;
 
-    _elementShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
+    _elementShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 140) style:UITableViewStyleGrouped];
     _elementShowTableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     [_elementShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:_elementShowTableView];
@@ -66,15 +67,6 @@
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
-}
-//主题设置
--(void)themeSetting {
-    //主题颜色
-    UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
-    //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
-    _themeColor = blueThemeColor;
-    //控件大小设置
-    _deviceScreenSize = [UIScreen mainScreen].bounds.size;
 }
 
 -(void)groupByMonth{
@@ -236,12 +228,12 @@
     Note *noteData = _listData[indexPath.row];
     //_cellView设置
     _cellView=[[UIView alloc]init];
-    [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, 80)];
+    [_cellView setFrame:CGRectMake(15, 10, [UIScreen mainScreen].bounds.size.width - 30, 80)];
     [_cellView.layer setCornerRadius:10];
     [_cellView setBackgroundColor:[UIColor whiteColor]];
     [baseTableViewCell.contentView addSubview:_cellView];
     //标题显示
-    UITextField *titleField = [[UITextField alloc]initWithFrame:CGRectMake(70, 22.5, _deviceScreenSize.width - 120, 40)];
+    UITextField *titleField = [[UITextField alloc]initWithFrame:CGRectMake(70, 22.5, [UIScreen mainScreen].bounds.size.width - 120, 40)];
     [titleField setKeyboardType:UIKeyboardTypeDefault];
     [titleField setTextAlignment:NSTextAlignmentLeft];
     [titleField setBackgroundColor:[UIColor clearColor]];
@@ -253,7 +245,7 @@
     [titleField setFont:[UIFont systemFontOfSize:22]];
     [_cellView addSubview:titleField];
     //位置显示
-    _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, _deviceScreenSize.width - 120, 10)];
+    _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 65, [UIScreen mainScreen].bounds.size.width - 120, 10)];
     [_locationLabel setTextColor:_themeColor];
     [_locationLabel setFont:[UIFont systemFontOfSize:12]];
     [_locationLabel setNumberOfLines:0];

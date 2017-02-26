@@ -7,6 +7,7 @@
 //
 
 #import "DiaryViewController.h"
+#import "AppDelegate.h"
 
 @interface DiaryViewController () <UITableViewDelegate,UITableViewDataSource,DiaryPageUpdateDelegate,UITextFieldDelegate>
 
@@ -34,8 +35,6 @@
 
 @property (nonatomic,strong) NSString *time;
 
-@property (nonatomic) CGSize deviceScreenSize;
-
 @property (nonatomic,strong) UIColor *themeColor;
 
 @property int year, month, date, hour, minute, weekDay;
@@ -47,9 +46,11 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    [self themeSetting];
+    //主题颜色
+    AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    _themeColor = appDelegate.themeColor;
     
-    _diaryShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width,_deviceScreenSize.height - 140) style:UITableViewStyleGrouped];
+    _diaryShowTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 140) style:UITableViewStyleGrouped];
     [_diaryShowTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view addSubview:_diaryShowTableView];
     UIImage *backImage=[UIImage imageNamed:@"background1"];
@@ -67,15 +68,6 @@
 - (void)didReceiveMemoryWarning{
     
     [super didReceiveMemoryWarning];
-}
-//主题设置
-- (void)themeSetting{
-    //主题颜色
-    UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
-    //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
-    _themeColor = blueThemeColor;
-    //控件大小设置
-    _deviceScreenSize = [UIScreen mainScreen].bounds.size;
 }
 
 - (void)groupByMonth{
@@ -242,7 +234,7 @@
     [_cellView setBackgroundColor:[UIColor whiteColor]];
     [baseTableViewCell.contentView addSubview:_cellView];
     //顶部底色
-    _maskLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, _deviceScreenSize.width - 30, 60)];
+    _maskLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 30, 60)];
     [_maskLabel setBackgroundColor:_themeColor];
     _maskLabel.layer.masksToBounds = YES;
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
@@ -250,7 +242,7 @@
     _maskLabel.layer.mask = maskLayer;
     [_cellView addSubview:_maskLabel];
     //标题显示
-    UITextField *titleField = [[UITextField alloc]initWithFrame:CGRectMake(70, 20, _deviceScreenSize.width - 110, 20)];
+    UITextField *titleField = [[UITextField alloc]initWithFrame:CGRectMake(70, 20, [UIScreen mainScreen].bounds.size.width - 110, 20)];
     [titleField setKeyboardType:UIKeyboardTypeDefault];
     [titleField setTextAlignment:NSTextAlignmentLeft];
     [titleField setBackgroundColor:[UIColor clearColor]];
@@ -270,16 +262,16 @@
     [_contentLabel setText:diaryData.content];
     [_contentLabel setTag: indexPath.row];
     CGSize autoContentSize = {0, 0};    //初始autoSize
-    CGSize size = CGSizeMake(_deviceScreenSize.width - 60, 160); //autoSize最大限制
+    CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width - 60, 160); //autoSize最大限制
     NSDictionary * contentFontDic = [NSDictionary dictionaryWithObjectsAndKeys:_contentLabel.font,NSFontAttributeName,nil];
     autoContentSize = [diaryData.content boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin  attributes:contentFontDic context:nil].size;
-    [_contentLabel setFrame:CGRectMake(10, 70, _deviceScreenSize.width - 50, autoContentSize.height)];
+    [_contentLabel setFrame:CGRectMake(10, 70, [UIScreen mainScreen].bounds.size.width - 50, autoContentSize.height)];
     [_cellView addSubview:_contentLabel];
     //_cellView设置
     NSInteger tag = _contentLabel.frame.size.height;
-    [_cellView setFrame:CGRectMake(15, 10, _deviceScreenSize.width-30, tag + 80)];
+    [_cellView setFrame:CGRectMake(15, 10, [UIScreen mainScreen].bounds.size.width-30, tag + 80)];
     //位置显示
-    _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 45, _deviceScreenSize.width - 120, 10)];
+    _locationLabel = [[UILabel alloc]initWithFrame:CGRectMake(70, 45,[UIScreen mainScreen].bounds.size.width - 120, 10)];
     [_locationLabel setTextColor:[UIColor whiteColor]];
     [_locationLabel setFont:[UIFont systemFontOfSize:12]];
     [_locationLabel setNumberOfLines:0];

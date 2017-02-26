@@ -12,6 +12,7 @@
 #import "CalendarViewController.h"
 #import "NoteEditViewController.h"
 #import "DiaryEditViewController.h"
+
 @interface ViewController : UIViewController
 
 @property (nonatomic,strong) ElementViewController *elementVC;
@@ -19,6 +20,9 @@
 @property (nonatomic,strong) CalendarViewController* calendarVC;
 
 @property (nonatomic,strong) DiaryViewController *diaryVC;
+
+//主题颜色
+@property (nonatomic,strong) UIColor *themeColor;
 
 @end
 

@@ -10,6 +10,8 @@
 
 @interface AppDelegate ()
 
+
+
 @end
 
 @implementation AppDelegate
@@ -18,6 +20,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    UIColor *blueThemeColor = [UIColor colorWithRed:107/255.0 green:183/255.0 blue:219/255.0 alpha:1];
+    //UIColor *redThemeColor = [UIColor colorWithRed:246/255.0 green:120/255.0 blue:138/255.0 alpha:1];
+    _themeColor = blueThemeColor;
+    
+    
     self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     ViewController *rootView=[[ViewController alloc]init];
@@ -25,11 +32,16 @@
     
     [self.window setRootViewController:baseNavigationController];
     [self.window makeKeyAndVisible];
-
+    /*
+    NSDictionary *defaults = @{kScreenAutoLock: @NO,
+                               kSensitivityValue: @5};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+    return YES;
+*/
+    
+    
     return YES;
 }
-
-
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
